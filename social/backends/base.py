@@ -105,6 +105,11 @@ class BaseAuth(object):
         out.setdefault('backend', out.pop(self.name, None) or self)
         out.setdefault('request', self.strategy.request_data())
         out.setdefault('details', {})
+        
+        if not isinstance(pipeline_index, int) or \
+                pipeline_index < 0 or \
+                pipeline_index >= len(pipeline):
+            pipeline_index = 0
 
         for idx, name in enumerate(pipeline):
             out['pipeline_index'] = pipeline_index + idx
